@@ -134,7 +134,7 @@ print(vendas_mes_total)
 # 6.2-Sazonalidade por mês
 
 plt.bar(vendas_mes_total["Mes"].astype(str), vendas_mes_total["Total"])
-plt.title("Sazonalidades das Mês")
+plt.title("Sazonalidades por Mês")
 plt.xlabel("Mês")
 plt.ylabel("Total de Vendas")
 plt.xticks(rotation=45)
@@ -147,3 +147,4 @@ clientes_total = clientes_total.sort_values("Total", ascending=False)
 top10 = clientes_total.head(10)
 percent_top10 = top10["Total"].sum() / clientes_total["Total"].sum() * 100
 print(f"Os 10 maiores clientes representam {percent_top10:.2f}% do total das vendas.")
+
