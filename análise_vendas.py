@@ -50,11 +50,11 @@ print("Preço Médio Ponderado:", preco_medio)
 vendas_clientes = df_vendas.groupby("ClienteID")["Total"].sum().sort_values(ascending = False)
 print("Vendas por Cliente:", vendas_clientes)
 
-# 4.2-Vendas por Cliente
+# 4.2-Vendas por Produto 
 
 df_item["ValorTotalLinha"] = df_item["Quantidade"]*df_item["PreçoUnitario"]
 vendas_produto = df_item.groupby("ProdutoID")["ValorTotalLinha"].sum().sort_values(ascending = False)
-print("# 4.1-Vendas por Cliente:", vendas_produto)
+print("Vendas por Produto:", vendas_produto)
 
 # 4.3-Vendas por Mês
 
@@ -118,20 +118,20 @@ plt.title("Distribuição por Forma de Pagamento")
 plt.tight_layout()
 plt.show()
 
+# 6-Insights
+
+# 6.1-Clientes que compraram pouco
+
 cliente_total = df_vendas.groupby("ClienteID")["Total"].sum().reset_index()
 cliente_total = cliente_total.sort_values("Total", ascending=True)
 print("Top 10 clientes que compraram menos:", cliente_total.head(10))
 
-# 6-Insights
-
-# 6.1-Clientes que compraram pouco
+# 6.2-Sazonalidade por mês
 
 df_vendas["DataVenda"] = pd.to_datetime(df_vendas["DataVenda"], errors="coerce")
 df_vendas["Mes"] = df_vendas["DataVenda"].dt.to_period("M")
 vendas_mes_total = df_vendas.groupby("Mes")["Total"].sum().reset_index()
 print(vendas_mes_total)
-
-# 6.2-Sazonalidade por mês
 
 plt.bar(vendas_mes_total["Mes"].astype(str), vendas_mes_total["Total"])
 plt.title("Sazonalidades por Mês")
@@ -147,4 +147,5 @@ clientes_total = clientes_total.sort_values("Total", ascending=False)
 top10 = clientes_total.head(10)
 percent_top10 = top10["Total"].sum() / clientes_total["Total"].sum() * 100
 print(f"Os 10 maiores clientes representam {percent_top10:.2f}% do total das vendas.")
+
 
